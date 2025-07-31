@@ -21,6 +21,19 @@ Cadastrar Diretoria
     ${board_id}=    Set Variable    ${json['newBoard']['_id']}
     Set Suite Variable    ${BOARD_ID}    ${board_id}
 
+Cadastrar Diretoria com Caracteres Inválidos    
+    [Documentation]    Tenta cadastrar uma diretoria com caracteres inválidos
+    ${headers}=    Create Dictionary    Content-Type=application/json    Authorization=${TOKEN} 
+    ${body}=    Create Dictionary    boardName=$aude
+    ${response}=    POST On Session    api   ${BASE_URL}/api/board   json=${body}    headers=${headers}    expected_status=400
+
+Cadastrar Diretoria com Nome Vazio   
+    [Documentation]    Tenta cadastrar uma diretoria com caracteres inválidos
+    ${headers}=    Create Dictionary    Content-Type=application/json    Authorization=${TOKEN} 
+    ${body}=    Create Dictionary    boardName=
+    ${response}=    POST On Session    api   ${BASE_URL}/api/board   json=${body}    headers=${headers}    expected_status=400
+
+
 Editar Diretoria
     [Documentation]    Edita uma diretoria existente usando o ID salvo
     ${headers}=    Create Dictionary    Content-Type=application/json        Authorization=${TOKEN} 
